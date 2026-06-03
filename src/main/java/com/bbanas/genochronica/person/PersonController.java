@@ -10,7 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
+
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import com.bbanas.genochronica.person.dto.PersonRequest;
+
+
 
 
 @RestController
@@ -29,6 +37,22 @@ public class PersonController {
             return ResponseEntity.notFound().build();
         }
     }
+
+	@PostMapping("")
+	public ResponseEntity<Person> createPerson(@RequestBody PersonRequest person) {
+		return ResponseEntity.status(201).body(personService.savePerson(person));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person updatedPerson) {
+		Person existingPerson = personService.getPersonById(id).orElse(null);
+		if (existingPerson == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.status(202).body(personService.updatePerson(id, updatedPerson));
+	}
+	
 
     @GetMapping("/search")
     public Page<Person> searchByName(@RequestParam String name) {

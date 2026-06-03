@@ -1,4 +1,4 @@
-package com.bbanas.genochronica.relationship;
+package com.bbanas.genochronica.relationship.types;
 
 public enum RelationshipStatus {
     MARRIED,

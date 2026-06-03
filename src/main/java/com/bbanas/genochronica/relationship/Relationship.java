@@ -3,6 +3,8 @@ package com.bbanas.genochronica.relationship;
 import java.time.LocalDate;
 
 import com.bbanas.genochronica.person.Person;
+import com.bbanas.genochronica.relationship.types.RelationshipStatus;
+import com.bbanas.genochronica.relationship.types.RelationshipType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -30,6 +32,9 @@ public class Relationship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Enumerated(EnumType.STRING)
+	private RelationshipType type;
+
     @Enumerated(EnumType.STRING)
     private RelationshipStatus status;
 

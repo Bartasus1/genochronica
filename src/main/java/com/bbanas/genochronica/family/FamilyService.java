@@ -8,6 +8,7 @@ import com.bbanas.genochronica.person.Person;
 import com.bbanas.genochronica.person.PersonRepository;
 import com.bbanas.genochronica.relationship.Relationship;
 import com.bbanas.genochronica.relationship.RelationshipRepository;
+import com.bbanas.genochronica.relationship.types.RelationshipType;
 
 import lombok.AllArgsConstructor;
 
@@ -26,8 +27,9 @@ public class FamilyService {
             if(person.getFather() != null) {
                 relationships.add(
                     new Relationship()
-                    .withPersonA(person)
-                    .withPersonB(person.getFather())
+					.withType(RelationshipType.PARENT_CHILD)
+                    .withPersonA(person.getFather())
+                    .withPersonB(person)
                     .withFrom(person.getBirth().getDate())
                 );
             }
@@ -35,8 +37,9 @@ public class FamilyService {
             if(person.getMother() != null) {
                 relationships.add(
                     new Relationship()
-                    .withPersonA(person)
-                    .withPersonB(person.getMother())
+					.withType(RelationshipType.PARENT_CHILD)
+                    .withPersonA(person.getMother())
+                    .withPersonB(person)
                     .withFrom(person.getBirth().getDate())
                 );
             }

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import com.bbanas.genochronica.event.SimpleEvent;
 import com.bbanas.genochronica.event.Event;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import jakarta.persistence.Entity;
@@ -19,11 +20,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.With;
 
 
 @Entity
 @Getter
 @Setter
+@With
 @NoArgsConstructor
 @AllArgsConstructor
 public class Person {
@@ -32,16 +35,20 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@JsonProperty("first_name")
 	private String firstName;
+	@JsonProperty("middle_name")
 	private String middleName;
+	@JsonProperty("last_name")
 	private String lastName;
 
+	@JsonProperty("maiden_name")
 	private String maidenName;
 
-	@JsonUnwrapped
+	@JsonUnwrapped(prefix="birth_")
 	private SimpleEvent birth;
 
-	@JsonUnwrapped
+	@JsonUnwrapped(prefix="death_")
 	private SimpleEvent death;
 
 
@@ -70,6 +77,6 @@ public class Person {
 		return String.join(" ", firstName, middleName, lastName)
 			.replaceAll("\\s+", " ")
 			.trim();
-	}
+  	}
 
 }
