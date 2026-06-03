@@ -1,6 +1,5 @@
 package com.bbanas.genochronica.person;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -33,17 +32,17 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String name;
+	private String firstName;
 	private String middleName;
 	private String lastName;
 
-	private Optional<String> maidenName;
+	private String maidenName;
 
 	@JsonUnwrapped
 	private SimpleEvent birth;
 
 	@JsonUnwrapped
-	private Optional<SimpleEvent> death;
+	private SimpleEvent death;
 
 
 	// every person has at most 2 parents, but they can be unknown
@@ -51,12 +50,12 @@ public class Person {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "father_id")
-	private Optional<Person> father;
+	private Person father;
 
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "mother_id")
-	private Optional<Person> mother;
+	private Person mother;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "participants")
@@ -64,7 +63,13 @@ public class Person {
 
 
 	public boolean isAlive() {
-		return death.isEmpty();
+		return death == null;
+	}
+
+	public String getName() {
+		return String.join(" ", firstName, middleName, lastName)
+			.replaceAll("\\s+", " ")
+			.trim();
 	}
 
 }

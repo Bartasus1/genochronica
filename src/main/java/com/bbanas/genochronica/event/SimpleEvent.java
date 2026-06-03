@@ -21,5 +21,6 @@ public class SimpleEvent {
 
     @ManyToOne
     private Place place;
+    
     private LocalDate date;
 }

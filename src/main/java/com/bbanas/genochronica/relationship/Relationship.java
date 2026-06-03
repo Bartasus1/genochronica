@@ -1,7 +1,6 @@
 package com.bbanas.genochronica.relationship;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import com.bbanas.genochronica.person.Person;
 
@@ -17,10 +16,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.With;
 
 @Entity
 @Getter
 @Setter
+@With
 @NoArgsConstructor
 @AllArgsConstructor
 public class Relationship {
@@ -41,6 +42,6 @@ public class Relationship {
     private Person personB;
 
     private LocalDate from;
-    private Optional<LocalDate> to;
+    private LocalDate to;
 
 }
